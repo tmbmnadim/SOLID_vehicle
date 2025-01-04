@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:solid_principle/utils/vehicles/wheels.dart';
+import 'package:solid_principle/entities/vehicles/wheels.dart';
 
-import 'utils/vehicles/bodies.dart';
-import 'utils/vehicles/hoods.dart';
+import 'entities/vehicles/bodies.dart';
+import 'entities/vehicles/hoods.dart';
 import 'view/vehicle_drawer.dart';
 
 void main() {

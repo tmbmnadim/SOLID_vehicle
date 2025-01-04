@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import "../utils/vehicles/vehicle_parts.dart";
+import "../entities/vehicles/vehicle_parts.dart";
 import "widgets/hood_clipper.dart";
 
 class DrawVehicle extends StatelessWidget {

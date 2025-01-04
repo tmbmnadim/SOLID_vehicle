@@ -1,5 +1,5 @@
-import 'package:solid_principle/utils/shapes/rectangle.dart';
-import 'package:solid_principle/utils/shapes/trapizoid.dart';
+import 'package:solid_principle/entities/shapes/rectangle.dart';
+import 'package:solid_principle/entities/shapes/trapizoid.dart';
 
 import '../shapes/shape_properties.dart';
 import '../shapes/circle.dart';
@@ -50,6 +50,8 @@ class Wheel implements VehiclePart {
   static double _calculateRimRadius(double radius, double tireRimRatio) {
     return (1 - tireRimRatio) * radius;
   }
+
+  Wheel.fromId(String id) : id = id;
 }
 
 class Body implements VehiclePart {
