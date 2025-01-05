@@ -32,8 +32,8 @@ class Wheel implements VehiclePart {
   final double radius;
 
   Wheel({
-    required this.description,
     required this.id,
+    required this.description,
     required this.name,
     required this.horizontalPosition,
     required this.verticalPosition,
@@ -51,7 +51,29 @@ class Wheel implements VehiclePart {
     return (1 - tireRimRatio) * radius;
   }
 
-  Wheel.fromId(String id) : id = id;
+  factory Wheel.fromMap(Map<String, Object?> map) {
+    return Wheel(
+      id: map['id'] as String,
+      description: map['description'] as String,
+      name: map['name'] as String,
+      horizontalPosition: map['horizontalPosition'] as double,
+      verticalPosition: map['verticalPosition'] as double,
+      radius: map['radius'] as double,
+      tireRimRatio: map['tireRimRatio'] as double,
+    );
+  }
+
+  Map<String, Object?> toMap() {
+    return {
+      'id': id,
+      'description': description,
+      'name': name,
+      'horizontalPosition': horizontalPosition,
+      'verticalPosition': verticalPosition,
+      'radius': radius,
+      'tireRimRatio': tireRimRatio,
+    };
+  }
 }
 
 class Body implements VehiclePart {
@@ -77,14 +99,34 @@ class Body implements VehiclePart {
     required this.length,
     required this.height,
   }) : partShape = Rectangle(length, height);
+
+  factory Body.fromMap(Map<String, Object?> map) {
+    return Body(
+      id: map['id'] as String,
+      description: map['description'] as String,
+      name: map['name'] as String,
+      length: map['length'] as double,
+      height: map['height'] as double,
+    );
+  }
+
+  Map<String, Object?> toMap() {
+    return {
+      'id': id,
+      'description': description,
+      'name': name,
+      'length': length,
+      'height': height,
+    };
+  }
 }
 
 class Hood implements VehiclePart {
   @override
-  final String description;
+  final String id;
 
   @override
-  final String id;
+  final String description;
 
   @override
   final String name;
@@ -112,4 +154,28 @@ class Hood implements VehiclePart {
           bottomBase: bottomLength,
           height: height,
         );
+
+  factory Hood.fromMap(Map<String, Object?> map) {
+    return Hood(
+      id: map['id'] as String,
+      description: map['description'] as String,
+      name: map['name'] as String,
+      position: map['position'] as double,
+      topLength: map['topLength'] as double,
+      bottomLength: map['bottomLength'] as double,
+      height: map['height'] as double,
+    );
+  }
+
+  Map<String, Object?> toMap() {
+    return {
+      'id': id,
+      'description': description,
+      'name': name,
+      'position': position,
+      'topLength': topLength,
+      'bottomLength': bottomLength,
+      'height': height,
+    };
+  }
 }

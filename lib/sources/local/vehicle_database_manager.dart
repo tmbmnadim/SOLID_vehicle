@@ -52,11 +52,38 @@ class VehicleDatabaseManager {
           CREATE TABLE hood (
             _id INTEGER PRIMARY KEY,
             name TEXT NOT NULL,
-            price INTEGER NOT NULL,
-            hood TEXT NOT NULL
-            body TEXT NOT NULL
-            frontWheels TEXT NOT NULL
-            backWheels TEXT NOT NULL
+            description TEXT NOT NULL,
+            topLength REAL NOT NULL,
+            bottomLength REAL NOT NULL,
+            bottomLength REAL NOT NULL,
+            height REAL NOT NULL,
+            position REAL NOT NULL,
+          )
+          ''',
+        );
+
+        db.execute(
+          '''
+          CREATE TABLE body (
+            _id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            description TEXT NOT NULL,
+            length REAL NOT NULL,
+            height REAL NOT NULL,
+          )
+          ''',
+        );
+
+        db.execute(
+          '''
+          CREATE TABLE wheels (
+            _id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            description TEXT NOT NULL,
+            horizontalPosition REAL NOT NULL,
+            verticalPosition REAL NOT NULL,
+            radius REAL NOT NULL,
+            tireRimRatio REAL NOT NULL,
           )
           ''',
         );
@@ -64,13 +91,75 @@ class VehicleDatabaseManager {
     );
   }
 
-  static Future<void> insertVehicle(Vehicle vehicle) async {
-    await database!.insert(
-      'vehicle',
-      vehicle.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  static Future<int?> insertVehicle(Vehicle vehicle) async {
+    try {
+      // Insert front wheels and get the generated ID
+      int frontWheelsId = await database!.insert(
+        'wheels',
+        vehicle.frontWheels.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+
+      // Insert back wheels and get the generated ID
+      int backWheelsId = await database!.insert(
+        'wheels',
+        vehicle.backWheels.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+
+      // Insert hood and get the generated ID
+      int hoodId = await database!.insert(
+        'hood',
+        vehicle.hood.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+
+      // Insert body and get the generated ID
+      int bodyId = await database!.insert(
+        'body',
+        vehicle.body.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+
+      // Insert the vehicle using the generated IDs
+      await database!.insert(
+        'vehicle',
+        {
+          'id': vehicle.id,
+          'name': vehicle.name,
+          'price': vehicle.price,
+          'hood': hoodId,
+          'body': bodyId,
+          'frontWheels': frontWheelsId,
+          'backWheels': backWheelsId,
+          'type': vehicle.runtimeType.toString(),
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      debugPrint(
+        "insertVehicle<VehicleDatabaseManager> Couldn't insert vehicle",
+      );
+    }
+    return null;
   }
+
+  static Future<List<Vehicle>> getVehicles() async {
+    List<Vehicle> vehicles = [];
+    try {
+      List<Map<String, Object?>> results = await database!.query('vehicle');
+      for (Map<String, Object?> result in results) {
+        vehicles.add(Vehicle.fromMap(result));
+      }
+    } catch (e) {
+      debugPrint(
+        "getVehicles<VehicleDatabaseManager> Couldn't get vehicles",
+      );
+    }
+    return vehicles;
+  }
+
+  static Future<Vehicle> getVehicle(String id) async {}
 
   static Future<void> deleteVehicleDatabase() async {
     await deleteDatabase(_databasePath);

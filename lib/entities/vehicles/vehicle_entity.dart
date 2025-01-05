@@ -36,10 +36,10 @@ class Vehicle {
       id: map['id'],
       name: map['name'],
       price: map['price'],
-      hood: Hood.fromId(map['hood']),
-      body: Body.fromId(map['body']),
-      frontWheels: Wheel.fromId(map['frontWheels']),
-      backWheels: Wheel.fromId(map['backWheels']),
+      hood: Hood.fromMap(map['hood']),
+      body: Body.fromMap(map['body']),
+      frontWheels: Wheel.fromMap(map['frontWheels']),
+      backWheels: Wheel.fromMap(map['backWheels']),
     );
   }
 }
