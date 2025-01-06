@@ -18,6 +18,27 @@ class Vehicle {
     required this.frontWheel,
     required this.backWheel,
   });
+
+  Vehicle copyWith({
+    int? id,
+    String? name,
+    double? price,
+    Hood? hood,
+    Body? body,
+    Wheel? frontWheel,
+    Wheel? backWheel,
+  }) {
+    return Vehicle(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      price: price ?? this.price,
+      hood: hood ?? this.hood,
+      body: body ?? this.body,
+      frontWheel: frontWheel ?? this.frontWheel,
+      backWheel: backWheel ?? this.backWheel,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'name': name,

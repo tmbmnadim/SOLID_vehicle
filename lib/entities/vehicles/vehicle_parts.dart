@@ -5,7 +5,7 @@ import '../shapes/shape_properties.dart';
 import '../shapes/circle.dart';
 
 abstract class VehiclePart {
-  String? get id;
+  int? get id;
   String get name;
   String get description;
   Shape get partShape;
@@ -13,7 +13,7 @@ abstract class VehiclePart {
 
 class Wheel implements VehiclePart {
   @override
-  final String? id;
+  final int? id;
 
   @override
   final String description;
@@ -53,7 +53,7 @@ class Wheel implements VehiclePart {
 
   factory Wheel.fromMap(Map<String, Object?> map) {
     return Wheel(
-      id: (map['_id'] as String?) ?? '',
+      id: (map['_id'] as int?) ?? 0,
       description: (map['description'] as String?) ?? '',
       name: (map['name'] as String?) ?? '',
       horizontalPosition: map['horizontalPosition'] as double? ?? 0,
@@ -77,7 +77,7 @@ class Wheel implements VehiclePart {
 
 class Body implements VehiclePart {
   @override
-  final String? id;
+  final int? id;
 
   @override
   final String description;
@@ -101,7 +101,7 @@ class Body implements VehiclePart {
 
   factory Body.fromMap(Map<String, Object?> map) {
     return Body(
-      id: map['_id'] as String? ?? '',
+      id: map['_id'] as int? ?? 0,
       description: map['description'] as String? ?? '',
       name: map['name'] as String? ?? '',
       length: map['length'] as double? ?? 0,
@@ -121,7 +121,7 @@ class Body implements VehiclePart {
 
 class Hood implements VehiclePart {
   @override
-  final String? id;
+  final int? id;
 
   @override
   final String description;
@@ -155,7 +155,7 @@ class Hood implements VehiclePart {
 
   factory Hood.fromMap(Map<String, Object?> map) {
     return Hood(
-      id: map['_id'] as String? ?? '',
+      id: map['_id'] as int? ?? 0,
       description: map['description'] as String? ?? '',
       name: map['name'] as String? ?? '',
       position: map['position'] as double? ?? 0,

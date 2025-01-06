@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:solid_principle/entities/vehicles/vehicle_entity.dart';
 import 'package:solid_principle/sources/local/vehicle_table_manager.dart';
 
@@ -15,14 +16,17 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  Vehicle? vehicle;
+  List<Vehicle>? vehicles;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(width: double.infinity),
+          const SizedBox(
+            width: double.infinity,
+            height: 150,
+          ),
           DrawVehicle(
             hood: TruckHood(),
             body: TruckBody(),
@@ -30,26 +34,6 @@ class _HomepageState extends State<Homepage> {
             rightWheel: CarWheel(),
           ),
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () async {
-              vehicle = await VehicleTableManager().saveData(
-                Vehicle(
-                  id: 1,
-                  name: "TEST",
-                  price: 1000,
-                  hood: TruckHood(),
-                  body: TruckBody(),
-                  frontWheel: CarWheel(),
-                  backWheel: CarWheel(),
-                ),
-              );
-
-              setState(() {});
-            },
-            child: const Text("Add Vehicle"),
-          ),
-          const SizedBox(height: 20),
-          Text(vehicle?.toMap().toString() ?? ""),
         ],
       ),
     );
