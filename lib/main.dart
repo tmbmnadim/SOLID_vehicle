@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:solid_principle/entities/vehicles/wheels.dart';
+import 'dart:async';
 
-import 'entities/vehicles/bodies.dart';
-import 'entities/vehicles/hoods.dart';
-import 'view/vehicle_drawer.dart';
+import 'package:flutter/material.dart';
+import 'package:solid_principle/view/homepage.dart';
+import 'sources/local/vehicle_table_manager.dart';
 
 void main() {
   runApp(const SOLIDApp());
@@ -15,19 +14,18 @@ class SOLIDApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(width: double.infinity),
-            DrawVehicle(
-              hood: TruckHood(),
-              body: TruckBody(),
-              leftWheel: CarWheel(),
-              rightWheel: CarWheel(),
+      home: FutureBuilder(
+        future: VehicleTableManager().initDatabase(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return const Homepage();
+          }
+          return const SizedBox(
+            child: Center(
+              child: CircularProgressIndicator(),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

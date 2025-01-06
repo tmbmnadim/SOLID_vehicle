@@ -1,7 +1,6 @@
 import 'vehicle_parts.dart';
 
 class CarHood extends Hood {
-  static const String _defaultId = "car_body";
   static const String _defaultName = "Car Body";
   static const String _defaultDescription = "The body of a car";
   static const double _defaultPosition = 0.5;
@@ -10,7 +9,6 @@ class CarHood extends Hood {
   static const double _defaultHeight = 30;
 
   CarHood({
-    super.id = _defaultId,
     super.name = _defaultName,
     super.description = _defaultDescription,
     super.position = _defaultPosition,
@@ -21,8 +19,7 @@ class CarHood extends Hood {
 }
 
 class TruckHood extends Hood {
-  static const String _defaultId = "truck_body";
-  static const String _defaultName = "Truck Body";
+  static const String _defaultName = "Truck Hood";
   static const String _defaultDescription = "The body of a truck";
   static const double _defaultPosition = 0;
   static const double _defaultTopLength = 40;
@@ -30,7 +27,6 @@ class TruckHood extends Hood {
   static const double _defaultHeight = 40;
 
   TruckHood({
-    super.id = _defaultId,
     super.name = _defaultName,
     super.description = _defaultDescription,
     super.position = _defaultPosition,

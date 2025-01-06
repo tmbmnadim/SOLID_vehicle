@@ -5,7 +5,7 @@ import '../shapes/shape_properties.dart';
 import '../shapes/circle.dart';
 
 abstract class VehiclePart {
-  String get id;
+  String? get id;
   String get name;
   String get description;
   Shape get partShape;
@@ -13,10 +13,10 @@ abstract class VehiclePart {
 
 class Wheel implements VehiclePart {
   @override
-  final String description;
+  final String? id;
 
   @override
-  final String id;
+  final String description;
 
   @override
   final String name;
@@ -32,7 +32,7 @@ class Wheel implements VehiclePart {
   final double radius;
 
   Wheel({
-    required this.id,
+    this.id,
     required this.description,
     required this.name,
     required this.horizontalPosition,
@@ -53,19 +53,18 @@ class Wheel implements VehiclePart {
 
   factory Wheel.fromMap(Map<String, Object?> map) {
     return Wheel(
-      id: map['id'] as String,
-      description: map['description'] as String,
-      name: map['name'] as String,
-      horizontalPosition: map['horizontalPosition'] as double,
-      verticalPosition: map['verticalPosition'] as double,
-      radius: map['radius'] as double,
-      tireRimRatio: map['tireRimRatio'] as double,
+      id: (map['_id'] as String?) ?? '',
+      description: (map['description'] as String?) ?? '',
+      name: (map['name'] as String?) ?? '',
+      horizontalPosition: map['horizontalPosition'] as double? ?? 0,
+      verticalPosition: map['verticalPosition'] as double? ?? 0,
+      radius: map['radius'] as double? ?? 0,
+      tireRimRatio: map['tireRimRatio'] as double? ?? 0,
     );
   }
 
   Map<String, Object?> toMap() {
     return {
-      'id': id,
       'description': description,
       'name': name,
       'horizontalPosition': horizontalPosition,
@@ -78,10 +77,10 @@ class Wheel implements VehiclePart {
 
 class Body implements VehiclePart {
   @override
-  final String description;
+  final String? id;
 
   @override
-  final String id;
+  final String description;
 
   @override
   final String name;
@@ -93,8 +92,8 @@ class Body implements VehiclePart {
   final double height;
 
   Body({
+    this.id,
     required this.description,
-    required this.id,
     required this.name,
     required this.length,
     required this.height,
@@ -102,17 +101,16 @@ class Body implements VehiclePart {
 
   factory Body.fromMap(Map<String, Object?> map) {
     return Body(
-      id: map['id'] as String,
-      description: map['description'] as String,
-      name: map['name'] as String,
-      length: map['length'] as double,
-      height: map['height'] as double,
+      id: map['_id'] as String? ?? '',
+      description: map['description'] as String? ?? '',
+      name: map['name'] as String? ?? '',
+      length: map['length'] as double? ?? 0,
+      height: map['height'] as double? ?? 0,
     );
   }
 
   Map<String, Object?> toMap() {
     return {
-      'id': id,
       'description': description,
       'name': name,
       'length': length,
@@ -123,7 +121,7 @@ class Body implements VehiclePart {
 
 class Hood implements VehiclePart {
   @override
-  final String id;
+  final String? id;
 
   @override
   final String description;
@@ -140,8 +138,8 @@ class Hood implements VehiclePart {
   final double position;
 
   Hood({
+    this.id,
     required this.description,
-    required this.id,
     required this.name,
     required this.position,
     required this.topLength,
@@ -157,19 +155,18 @@ class Hood implements VehiclePart {
 
   factory Hood.fromMap(Map<String, Object?> map) {
     return Hood(
-      id: map['id'] as String,
-      description: map['description'] as String,
-      name: map['name'] as String,
-      position: map['position'] as double,
-      topLength: map['topLength'] as double,
-      bottomLength: map['bottomLength'] as double,
-      height: map['height'] as double,
+      id: map['_id'] as String? ?? '',
+      description: map['description'] as String? ?? '',
+      name: map['name'] as String? ?? '',
+      position: map['position'] as double? ?? 0,
+      topLength: map['topLength'] as double? ?? 0,
+      bottomLength: map['bottomLength'] as double? ?? 0,
+      height: map['height'] as double? ?? 0,
     );
   }
 
   Map<String, Object?> toMap() {
     return {
-      'id': id,
       'description': description,
       'name': name,
       'position': position,

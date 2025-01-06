@@ -1,13 +1,13 @@
-import 'package:solid_principle/entities/vehicles/vehicle_parts.dart';
+import 'vehicle_parts.dart';
 
 class Vehicle {
-  final int id;
+  final int? id;
   final String name;
   final double price;
-  final Hood hood;
-  final Body body;
-  final Wheel frontWheels;
-  final Wheel backWheels;
+  final Hood? hood;
+  final Body? body;
+  final Wheel? frontWheel;
+  final Wheel? backWheel;
 
   Vehicle({
     required this.id,
@@ -15,31 +15,57 @@ class Vehicle {
     required this.price,
     required this.hood,
     required this.body,
-    required this.frontWheels,
-    required this.backWheels,
+    required this.frontWheel,
+    required this.backWheel,
   });
-
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'price': price,
-      'hood': hood.id,
-      'body': body.id,
-      'frontWheels': frontWheels.id,
-      'backWheels': backWheels.id,
+      'hood': hood?.id,
+      'body': body?.id,
+      'frontWheel': frontWheel?.id,
+      'backWheel': backWheel?.id,
     };
   }
 
   factory Vehicle.fromMap(Map<String, dynamic> map) {
+    Map<String, Object?> hood = {};
+    Map<String, Object?> body = {};
+    Map<String, Object?> frontWheel = {};
+    Map<String, Object?> backWheel = {};
+    if (map['hood'] is String) {
+      hood = {'id': map['hood']};
+    } else {
+      hood = map['hood'] ?? {'id': null};
+    }
+
+    if (map['body'] is String) {
+      body = {'id': map['body']};
+    } else {
+      body = map['body'] ?? {'id': null};
+    }
+
+    if (map['frontWheel'] is String) {
+      frontWheel = {'id': map['frontWheel']};
+    } else {
+      frontWheel = map['frontWheel'] ?? {'id': null};
+    }
+
+    if (map['backWheel'] is String) {
+      backWheel = {'id': map['backWheel']};
+    } else {
+      backWheel = map['backWheel'] ?? {'id': null};
+    }
+
     return Vehicle(
-      id: map['id'],
+      id: map['_id'],
       name: map['name'],
       price: map['price'],
-      hood: Hood.fromMap(map['hood']),
-      body: Body.fromMap(map['body']),
-      frontWheels: Wheel.fromMap(map['frontWheels']),
-      backWheels: Wheel.fromMap(map['backWheels']),
+      hood: Hood.fromMap(hood),
+      body: Body.fromMap(body),
+      frontWheel: Wheel.fromMap(frontWheel),
+      backWheel: Wheel.fromMap(backWheel),
     );
   }
 }
